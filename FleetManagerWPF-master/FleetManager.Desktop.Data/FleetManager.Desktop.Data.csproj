@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Rest\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\FleetManager.Desktop.Model\FleetManager.Desktop.Model.csproj" />
   </ItemGroup>
 

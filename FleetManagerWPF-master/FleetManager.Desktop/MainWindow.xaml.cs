@@ -14,10 +14,10 @@ namespace FleetManager.Desktop
 
         private CarModel _selectedCar;
 
-        public MainWindow(CarPresenter carPresenter)
+        public MainWindow()
         {
             InitializeComponent();
-            _carPresenter = carPresenter;
+            _carPresenter = new();
         }
 
         private void CreateNew_Click(object sender, RoutedEventArgs e)

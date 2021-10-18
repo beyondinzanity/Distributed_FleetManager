@@ -23,7 +23,7 @@ namespace FleetManager.Desktop.Model
 
         public CarModel Car => _car;
         public string Brand { get => _car.Brand; set => _car.Brand = value; }
-        public int Mileage { get => _car.Mileage; set => _car.Mileage = value; }
+        public int? Mileage { get => _car.Mileage; set => _car.Mileage = value; }
         public LocationModel Location { get=>_car.Location; set=>_car.Location = value; }
 
         public IEnumerable Locations { get; private set; }

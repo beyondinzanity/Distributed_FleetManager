@@ -7,12 +7,14 @@ namespace FleetManager.Desktop.Presenter
     public class CarPresenter
     {
         private readonly IDao<Car> _carData;
-        private readonly IDao<Location> _locationData;
+        private readonly IDao<Location> _locationData;        
 
-        public CarPresenter(IDao<Car> carData, IDao<Location> locationData)
+        public CarPresenter()
         {
-            _carData = carData;
-            _locationData = locationData;
+            // TODO: (Step 2) change the call to the dao factory so it recieves the data context
+            // for the WebAPI and thus returns a dao that calls that instead of the test data
+            _carData = DaoFactory.Create<Car>(MemoryDataContext.Instance);
+            _locationData = DaoFactory.Create<Location>(MemoryDataContext.Instance);
         }
 
         public IEnumerable<CarModel> GetAllCars()
