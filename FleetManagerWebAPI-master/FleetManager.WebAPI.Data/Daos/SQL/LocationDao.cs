@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FleetManager.WebAPI.Model;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +13,36 @@ namespace FleetManager.WebAPI.Data.Daos.SQL
     // 1. make the class inherit from the BaseDao class and use the relevant data context interface as type parameter
     // 2. implement the IDao interface in the class with the Location model class as type parameter
 
-    class LocationDao
+    class LocationDao : BaseDao<IDataContext<IDbConnection>>, IDao<Location>
     {
+        public LocationDao(IDataContext<IDbConnection> dataContext) : base(dataContext)
+        {
+
+        }
+
+        public Location Create(Location model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Delete(Location model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Location> Read()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Location> Read(Func<Location, bool> predicate)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Update(Location model)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
