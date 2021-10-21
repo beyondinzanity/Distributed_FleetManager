@@ -32,7 +32,9 @@ namespace FleetManager.WebAPI.Data.Daos.SQL
 
         public bool Delete(Car model)
         {
-            throw new NotImplementedException();
+            using IDbConnection conn = DataContext.Open();
+
+            return conn.Execute("DELETE FROM Cars WHERE Id = @id", model) >= 1;
         }
 
         public IEnumerable<Car> Read()
@@ -51,7 +53,9 @@ namespace FleetManager.WebAPI.Data.Daos.SQL
 
         public bool Update(Car model)
         {
-            throw new NotImplementedException();
+            using IDbConnection conn = DataContext.Open();
+
+            return conn.Execute("UPDATE Cars SET Brand = @brand, Mileage = @mileage, Reserved = @reserved WHERE Id = @id", model) == 1;
         }
     }
 }

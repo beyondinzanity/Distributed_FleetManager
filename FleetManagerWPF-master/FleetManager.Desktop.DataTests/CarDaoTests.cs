@@ -1,6 +1,7 @@
 ﻿using FleetManager.Desktop.Data;
 using FleetManager.Desktop.Model;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using RestSharp;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -17,7 +18,12 @@ namespace FleetManager.Desktop.DataTests
             // TODO: (Step 5) You should change this to instantiate another datacontext
             // to test integration with other datasources, but DO NOT change the
             // tests!
-            _dataContext = new TestDataContext();
+
+            //-----TEST-----
+            //_dataContext = new TestDataContext();
+
+            //-----RESTCLIENT-----
+            _dataContext = RestDataContext.Instance;
         }
 
         [TestMethod]
@@ -28,7 +34,7 @@ namespace FleetManager.Desktop.DataTests
             IEnumerable<Car> test = dao.Read();
 
             Assert.IsNotNull(test);
-            Assert.AreEqual(6, test.Count());
+            Assert.AreEqual(16, test.Count());
         }
 
         [TestMethod]
