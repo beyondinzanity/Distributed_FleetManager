@@ -9,7 +9,7 @@
 
         public override string ToString()
         {
-            return $"{Brand}";
+            return $"{Id}\t{Brand}\t\t Mileage: [{Mileage}]";
         }
     }
 }

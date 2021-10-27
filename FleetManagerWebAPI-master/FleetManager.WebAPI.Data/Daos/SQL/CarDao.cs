@@ -24,9 +24,7 @@ namespace FleetManager.WebAPI.Data.Daos.SQL
         public Car Create(Car model)
         {
             using IDbConnection conn = DataContext.Open();
-            Car temp = model;
-            temp.Id = Int32.Parse(conn.ExecuteScalar("INSERT INTO Cars (Brand, Mileage, Reserved) VALUES (@brand, @mileage, @reserved); Select Scope_Identity();", model).ToString());
-            Console.WriteLine(temp.Id);
+            model.Id = conn.ExecuteScalar<int>("INSERT INTO Cars (Brand, Mileage, Reserved) VALUES (@brand, @mileage, @reserved); Select Scope_Identity();", model);
             return model;
         }
 
@@ -41,7 +39,11 @@ namespace FleetManager.WebAPI.Data.Daos.SQL
         {
             string query = "SELECT * FROM Cars";
             using IDbConnection conn = DataContext.Open();
-            return conn.Query<Car>(query);
+            IDao<Location> locationDao = DaoFactory.Create<Location>(DataContext);
+            IEnumerable<Location> locationEnum = locationDao.Read();
+            IEnumerable<Car> carEnum= conn.Query<Car>(query);
+            carEnum.ToList().ForEach(c => c.Location = locationEnum.First(l => l.Id == c.LocationId));
+            return carEnum;
         }
 
         public IEnumerable<Car> Read(Func<Car, bool> predicate)

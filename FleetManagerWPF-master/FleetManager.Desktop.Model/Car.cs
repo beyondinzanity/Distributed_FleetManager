@@ -8,5 +8,10 @@ namespace FleetManager.Desktop.Model
         public string Brand { get; set; }
         public int? Mileage { get; set; }
         public Location Location { get; set; }
+        public override string ToString()
+        {
+            return $"{Id}, {Brand}, {Mileage}";
+        }
     }
+
 }

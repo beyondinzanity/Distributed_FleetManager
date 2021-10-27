@@ -10,8 +10,6 @@ namespace FleetManager.WebAPI.Data
         {
             Type dataContextType = dataContext.GetType();
 
-            // TODO: (Step 3) add check for the sql server datacontext interface type and return the correct dao
-
             if (typeof(ITypedDataContext).IsAssignableFrom(dataContextType))
             {
                 return typeof(TModel) switch

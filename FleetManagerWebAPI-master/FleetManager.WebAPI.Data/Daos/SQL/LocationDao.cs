@@ -1,4 +1,5 @@
-﻿using FleetManager.WebAPI.Model;
+﻿using Dapper;
+using FleetManager.WebAPI.Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -32,12 +33,16 @@ namespace FleetManager.WebAPI.Data.Daos.SQL
 
         public IEnumerable<Location> Read()
         {
-            throw new NotImplementedException();
+            string query = "SELECT * FROM Locations";
+            using IDbConnection conn = DataContext.Open();
+            return conn.Query<Location>(query);
         }
 
         public IEnumerable<Location> Read(Func<Location, bool> predicate)
         {
-            throw new NotImplementedException();
+            string query = "SELECT * FROM Locations";
+            using IDbConnection conn = DataContext.Open();
+            return conn.Query<Location>(query).Where(predicate);
         }
 
         public bool Update(Location model)
