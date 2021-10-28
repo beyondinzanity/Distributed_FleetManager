@@ -37,20 +37,24 @@ namespace FleetManager.WebAPI.Data.Daos.SQL
 
         public IEnumerable<Car> Read()
         {
-            string query = "SELECT * FROM Cars";
+            string query = "SELECT * FROM Cars INNER JOIN Locations ON Cars.LocationId=Locations.Id";
             using IDbConnection conn = DataContext.Open();
-            IDao<Location> locationDao = DaoFactory.Create<Location>(DataContext);
-            IEnumerable<Location> locationEnum = locationDao.Read();
-            IEnumerable<Car> carEnum= conn.Query<Car>(query);
-            carEnum.ToList().ForEach(c => c.Location = locationEnum.First(l => l.Id == c.LocationId));
-            return carEnum;
+
+            return conn.Query<Car, Location, Car>(query, (c, l ) => {
+                c.Location = l;
+                return c;
+                });
         }
 
         public IEnumerable<Car> Read(Func<Car, bool> predicate)
         {
-            string query = "SELECT * FROM Cars";
-            using IDbConnection connection = DataContext.Open();
-            return connection.Query<Car>(query).Where(predicate);
+            string query = "SELECT * FROM Cars INNER JOIN Locations ON Cars.LocationId=Locations.Id";
+            using IDbConnection conn = DataContext.Open();
+
+            return conn.Query<Car, Location, Car>(query, (c, l) => {
+                c.Location = l;
+                return c;
+            }).Where(predicate);
         }
 
         public bool Update(Car model)
